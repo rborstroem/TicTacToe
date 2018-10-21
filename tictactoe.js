@@ -156,29 +156,17 @@ function changeTurnText(turn) {
 
 function resetValues() {
     turn = 0;
-    
+    playerWon = false;
+
     changeTurnText(turn);
     setAllClickable(true);
 
-    topLeftElement.innerHTML = "";
-    topCenterElement.innerHTML = "";
-    topRightElement.innerHTML = "";
-    centerLeftElement.innerHTML = "";
-    centerCenterElement.innerHTML = "";
-    centerRightElement.innerHTML = "";
-    bottomLeftElement.innerHTML = "";
-    bottomCenterElement.innerHTML = "";
-    bottomRightElement.innerHTML = "";
-
-    for (var i = 0; i < valueArray.length; i++) {
+    for (var i = 0; i < elementArray.length; i++) {
+        elementArray[i].innerHTML = "";
+        elementArray[i].style.backgroundColor = "whitesmoke";
         valueArray[i] = "NULL";
     }
 
-    for (var i = 0; i < elementArray.length; i++) {
-        elementArray[i].style.backgroundColor = "whitesmoke";
-    }
-
-    playerWon = false;
     location.reload();
 }
 
@@ -189,7 +177,6 @@ function endGameCheck() {
     if (!playerWon) {
         winCondition("O");
     }
-    console.log(plays + " " + playerWon);
     if (plays == 9 && !playerWon) {
         gameOver();
     }
