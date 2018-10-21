@@ -1,17 +1,3 @@
-
-var topLeftClickable = true;
-var topCenterClickable = true;
-var topRightClickable = true;
-
-var centerLeftClickable = true;
-var centerCenterClickable = true;
-var centerRightClickable = true;
-
-var bottomLeftClickable = true;
-var bottomCenterClickable = true;
-var bottomRightClickable = true;
-
-
 var topLeftElement = document.getElementById("top_left");
 var topCenterElement = document.getElementById("top_center");
 var topRightElement = document.getElementById("top_right");
@@ -22,100 +8,88 @@ var bottomLeftElement = document.getElementById("bottom_left");
 var bottomCenterElement = document.getElementById("bottom_center");
 var bottomRightElement = document.getElementById("bottom_right");
 
-
 var restartElement = document.getElementById("restart");
 var turnTextElement = document.getElementById("turnText");
 
 var turn = 0;
-
-var valueArray = ["NULL","NULL","NULL","NULL","NULL","NULL","NULL","NULL","NULL"];
-var elementArray = [topLeftElement, topCenterElement, topRightElement, centerLeftElement, centerCenterElement, centerRightElement, bottomLeftElement, bottomCenterElement, bottomRightElement];
-
 var playerWon = false;
 
-var plays = 0;
+var valueArray = new Array(9).fill("NULL");
+var boolArray = new Array(9).fill(true);
+var elementArray = [topLeftElement, topCenterElement, topRightElement, centerLeftElement, centerCenterElement, centerRightElement, bottomLeftElement, bottomCenterElement, bottomRightElement];
 
 // TOP ELEMENTS CLICK EVENT LISTENERS
 $(topLeftElement).click(function() {
-    if (topLeftClickable) {
+    if (boolArray[0]) {
         insertValue(topLeftElement, turn, 0);
-        topLeftClickable = false;
-        turn = changeTurn(turn);
-        changeTurnText(turn);
+        boolArray[0] = false;
+        turn++;
     }
 });
 
 $(topCenterElement).click(function() {
-    if (topCenterClickable) {
+    if (boolArray[1]) {
         insertValue(topCenterElement, turn, 1);
-        topCenterClickable = false;
-        turn = changeTurn(turn);
-        changeTurnText(turn);
+        boolArray[1] = false;
+        turn++;
     }
 });
 
 $(topRightElement).click(function() {
-    if (topRightClickable) {
+    if (boolArray[2]) {
         insertValue(topRightElement, turn, 2);
-        topRightClickable = false;
-        turn = changeTurn(turn);
-        changeTurnText(turn);
+        boolArray[2] = false;
+        turn++;
     }
 });
 
 // CENTER ELEMENTS CLICK EVENT LISTENERS
 $(centerLeftElement).click(function() {
-    if (centerLeftClickable) {
+    if (boolArray[3]) {
         insertValue(centerLeftElement, turn, 3);
-        centerLeftClickable = false;
-        turn = changeTurn(turn);
-        changeTurnText(turn);
+        boolArray[3] = false;
+        turn++;
     }
 });
 
 $(centerCenterElement).click(function() {
-    if (centerCenterClickable) {
+    if (boolArray[4]) {
         insertValue(centerCenterElement, turn, 4);
-        centerCenterClickable = false;
-        turn = changeTurn(turn);
-        changeTurnText(turn);
+        boolArray[4] = false;
+        turn++;
     }
 });
 
 $(centerRightElement).click(function() {
-    if (centerRightClickable) {
+    if (boolArray[5]) {
         insertValue(centerRightElement, turn, 5);
-        centerRightClickable = false;
-        turn = changeTurn(turn);
-        changeTurnText(turn);
+        boolArray[5] = false;
+        turn++;
     }
 });
 
 // BOTTOM ELEMENTS CLICK EVENT LISTENERS
 $(bottomLeftElement).click(function() {
-    if (bottomLeftClickable) {
+    if (boolArray[6]) {
         insertValue(bottomLeftElement, turn, 6);
-        bottomLeftClickable = false;
-        turn = changeTurn(turn);
-        changeTurnText(turn);
+        boolArray[6] = false;
+        turn++;
     }
 });
 
 $(bottomCenterElement).click(function() {
-    if (bottomCenterClickable) {
+    if (boolArray[7]) {
         insertValue(bottomCenterElement, turn, 7);
-        bottomCenterClickable = false;
-        turn = changeTurn(turn);
-        changeTurnText(turn);
+        boolArray[7] = false;
+        turn++;
     }
 });
 
 $(bottomRightElement).click(function() {
-    if (bottomRightClickable) {
+    if (boolArray[8]) {
         insertValue(bottomRightElement, turn, 8);
-        bottomRightClickable = false;
-        turn = changeTurn(turn);
-        changeTurnText(turn);
+        boolArray[8] = false;
+        turn++;
     }
 });
 
@@ -127,30 +101,16 @@ $(restart).click(function() {
 
 // Writes to cell to give X or O
 function insertValue(element, turn, index) {
-    if (turn == 0) {
+    if (turn % 2 == 0) {
         element.innerHTML = 'X';
+        turnTextElement.innerHTML = 'X\'s turn!'
     } else {
         element.innerHTML = 'O';
+        turnTextElement.innerHTML = 'O\'s turn!'
     }
 
     valueArray[index] = element.innerHTML;
-
-    plays++;
-
-}
-
-// Changes turn
-function changeTurn(turn) {
-    return (turn + 1) % 2;
-}
-
-// Changes text above game
-function changeTurnText(turn) {
-    if (turn == 0) {
-        turnTextElement.innerHTML = 'X\'s turn!'
-    } else {
-        turnTextElement.innerHTML = 'O\'s turn!'
-    }
+    
     endGameCheck();
 }
 
@@ -158,7 +118,8 @@ function resetValues() {
     turn = 0;
     playerWon = false;
 
-    changeTurnText(turn);
+    turnTextElement.innerHTML = 'X\'s turn!'
+
     setAllClickable(true);
 
     for (var i = 0; i < elementArray.length; i++) {
@@ -171,17 +132,18 @@ function resetValues() {
 }
 
 function endGameCheck() {
-    if (!playerWon) {
+    if (!playerWon && turn % 2 == 0) {
         winCondition("X");
-    }
-    if (!playerWon) {
+    } else if (!playerWon && turn % 2 == 1) {
         winCondition("O");
     }
-    if (plays == 9 && !playerWon) {
+
+    if (turn == 8 && !playerWon) {
         gameOver();
     }
 }
 
+// Needs to be cleaned!
 function winCondition(string) {
     if (valueArray[0] == string) {
         if (valueArray[1] == string && valueArray[2] == string) {
@@ -235,15 +197,9 @@ function gameOver() {
 }
 
 function setAllClickable(bool) {
-    topLeftClickable = bool;
-    topCenterClickable = bool;
-    topRightClickable = bool;
-    centerLeftClickable = bool;
-    centerCenterClickable = bool;
-    centerRightClickable = bool;
-    bottomLeftClickable = bool;
-    bottomCenterClickable = bool;
-    bottomRightClickable = bool;
+    for (var i = 0; i < boolArray.length; i++) {
+        boolArray[i] = bool;
+    }
 }
 
 function win(string) {
@@ -253,14 +209,11 @@ function win(string) {
 }
 
 function colorize(int1, int2, int3) {
-    var intArray = [int1, int2, int3];
-
     for (var i = 0; i < elementArray.length; i++) {
-        elementArray[i].style.backgroundColor = "dimgray";
+        if (i == int1 || i == int2 || i == int3) {
+            elementArray[i].style.backgroundColor = "gold";
+        } else {
+            elementArray[i].style.backgroundColor = "dimgray";
+        }
     }
-
-    for (var i = 0; i < intArray.length; i++) {
-        elementArray[intArray[i]].style.backgroundColor = "gold";
-    }
-
 }
