@@ -18,100 +18,51 @@ var valueArray = new Array(9).fill("NULL");
 var boolArray = new Array(9).fill(true);
 var elementArray = [topLeftElement, topCenterElement, topRightElement, centerLeftElement, centerCenterElement, centerRightElement, bottomLeftElement, bottomCenterElement, bottomRightElement];
 
-var element = {tl:0, tc:1, tr:2, cl:3, cc:4, cr:5, bl:6, bc:7, br:8};
+var elements = {tl:0, tc:1, tr:2, cl:3, cc:4, cr:5, bl:6, bc:7, br:8};
 
 
 // TOP ELEMENTS CLICK EVENT LISTENERS
 $(topLeftElement).click(function() {
-    console.log("Before:" + boolArray[element.tl]);
-    if (boolArray[element.tl]) {
-        insertValue(topLeftElement, turn, element.tl);
-        boolArray[element.tl] = false;
-        turn++;
-    }
-    console.log(element.tl);
-    console.log("After: " + boolArray[element.tl]);
-
+    playTurn(elements.tl);
 });
 
 $(topCenterElement).click(function() {
-    if (boolArray[element.tc]) {
-        insertValue(topCenterElement, turn, element.tc);
-        boolArray[element.tc] = false;
-        turn++;
-    }
-    console.log(element.tc);
+    playTurn(elements.tc);
 
 });
 
 $(topRightElement).click(function() {
-    if (boolArray[element.tr]) {
-        insertValue(topRightElement, turn, element.tr);
-        boolArray[element.tr] = false;
-        turn++;
-    }
-    console.log(element.tr);
+    playTurn(elements.tr);
 
 });
 
 // CENTER ELEMENTS CLICK EVENT LISTENERS
 $(centerLeftElement).click(function() {
-    if (boolArray[element.cl]) {
-        insertValue(centerLeftElement, turn, element.cl);
-        boolArray[element.cl] = false;
-        turn++;
-    }
-    console.log(element.cl);
+    playTurn(elements.cl);
 
 });
 
 $(centerCenterElement).click(function() {
-    if (boolArray[element.cc]) {
-        insertValue(centerCenterElement, turn, element.cc);
-        boolArray[element.cc] = false;
-        turn++;
-    }
-    console.log(element.cc);
+    playTurn(elements.cc);
 
 });
 
 $(centerRightElement).click(function() {
-    if (boolArray[element.cr]) {
-        insertValue(centerRightElement, turn, element.cr);
-        boolArray[element.cr] = false;
-        turn++;
-    }
-    console.log(element.cr);
-
+    playTurn(elements.cr);
 });
 
 // BOTTOM ELEMENTS CLICK EVENT LISTENERS
 $(bottomLeftElement).click(function() {
-    if (boolArray[element.bl]) {
-        insertValue(bottomLeftElement, turn, element.bl);
-        boolArray[element.bl] = false;
-        turn++;
-    }
-    console.log(element.bl);
+    playTurn(elements.bl);
 
 });
 
 $(bottomCenterElement).click(function() {
-    if (boolArray[element.bc]) {
-        insertValue(bottomCenterElement, turn, element.bc);
-        boolArray[element.bc] = false;
-        turn++;
-    }
-    console.log(element.bc);
+    playTurn(elements.bc);
 });
 
 $(bottomRightElement).click(function() {
-    if (boolArray[element.br]) {
-        insertValue(bottomRightElement, turn, element.br);
-        boolArray[element.br] = false;
-        turn++;
-    }
-    console.log(element.br);
+    playTurn(elements.br);
 });
 
 // restarts game
@@ -119,6 +70,14 @@ $(restart).click(function() {
     resetValues();
 });
 
+// Takes care of a turn
+function playTurn(element) {
+    if (boolArray[element]) {
+        insertValue(elementArray[element], turn, element);
+        boolArray[element] = false;
+        turn++;
+    }   
+}
 
 // Writes to cell to give X or O
 function insertValue(element, turn, index) {
@@ -135,6 +94,7 @@ function insertValue(element, turn, index) {
     endGameCheck();
 }
 
+// Resets all values and reloads page
 function resetValues() {
     turn = 0;
     playerWon = false;
