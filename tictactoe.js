@@ -18,79 +18,100 @@ var valueArray = new Array(9).fill("NULL");
 var boolArray = new Array(9).fill(true);
 var elementArray = [topLeftElement, topCenterElement, topRightElement, centerLeftElement, centerCenterElement, centerRightElement, bottomLeftElement, bottomCenterElement, bottomRightElement];
 
+var element = {tl:0, tc:1, tr:2, cl:3, cc:4, cr:5, bl:6, bc:7, br:8};
+
+
 // TOP ELEMENTS CLICK EVENT LISTENERS
 $(topLeftElement).click(function() {
-    if (boolArray[0]) {
-        insertValue(topLeftElement, turn, 0);
-        boolArray[0] = false;
+    console.log("Before:" + boolArray[element.tl]);
+    if (boolArray[element.tl]) {
+        insertValue(topLeftElement, turn, element.tl);
+        boolArray[element.tl] = false;
         turn++;
     }
+    console.log(element.tl);
+    console.log("After: " + boolArray[element.tl]);
+
 });
 
 $(topCenterElement).click(function() {
-    if (boolArray[1]) {
-        insertValue(topCenterElement, turn, 1);
-        boolArray[1] = false;
+    if (boolArray[element.tc]) {
+        insertValue(topCenterElement, turn, element.tc);
+        boolArray[element.tc] = false;
         turn++;
     }
+    console.log(element.tc);
+
 });
 
 $(topRightElement).click(function() {
-    if (boolArray[2]) {
-        insertValue(topRightElement, turn, 2);
-        boolArray[2] = false;
+    if (boolArray[element.tr]) {
+        insertValue(topRightElement, turn, element.tr);
+        boolArray[element.tr] = false;
         turn++;
     }
+    console.log(element.tr);
+
 });
 
 // CENTER ELEMENTS CLICK EVENT LISTENERS
 $(centerLeftElement).click(function() {
-    if (boolArray[3]) {
-        insertValue(centerLeftElement, turn, 3);
-        boolArray[3] = false;
+    if (boolArray[element.cl]) {
+        insertValue(centerLeftElement, turn, element.cl);
+        boolArray[element.cl] = false;
         turn++;
     }
+    console.log(element.cl);
+
 });
 
 $(centerCenterElement).click(function() {
-    if (boolArray[4]) {
-        insertValue(centerCenterElement, turn, 4);
-        boolArray[4] = false;
+    if (boolArray[element.cc]) {
+        insertValue(centerCenterElement, turn, element.cc);
+        boolArray[element.cc] = false;
         turn++;
     }
+    console.log(element.cc);
+
 });
 
 $(centerRightElement).click(function() {
-    if (boolArray[5]) {
-        insertValue(centerRightElement, turn, 5);
-        boolArray[5] = false;
+    if (boolArray[element.cr]) {
+        insertValue(centerRightElement, turn, element.cr);
+        boolArray[element.cr] = false;
         turn++;
     }
+    console.log(element.cr);
+
 });
 
 // BOTTOM ELEMENTS CLICK EVENT LISTENERS
 $(bottomLeftElement).click(function() {
-    if (boolArray[6]) {
-        insertValue(bottomLeftElement, turn, 6);
-        boolArray[6] = false;
+    if (boolArray[element.bl]) {
+        insertValue(bottomLeftElement, turn, element.bl);
+        boolArray[element.bl] = false;
         turn++;
     }
+    console.log(element.bl);
+
 });
 
 $(bottomCenterElement).click(function() {
-    if (boolArray[7]) {
-        insertValue(bottomCenterElement, turn, 7);
-        boolArray[7] = false;
+    if (boolArray[element.bc]) {
+        insertValue(bottomCenterElement, turn, element.bc);
+        boolArray[element.bc] = false;
         turn++;
     }
+    console.log(element.bc);
 });
 
 $(bottomRightElement).click(function() {
-    if (boolArray[8]) {
-        insertValue(bottomRightElement, turn, 8);
-        boolArray[8] = false;
+    if (boolArray[element.br]) {
+        insertValue(bottomRightElement, turn, element.br);
+        boolArray[element.br] = false;
         turn++;
     }
+    console.log(element.br);
 });
 
 // restarts game
@@ -103,10 +124,10 @@ $(restart).click(function() {
 function insertValue(element, turn, index) {
     if (turn % 2 == 0) {
         element.innerHTML = 'X';
-        turnTextElement.innerHTML = 'X\'s turn!'
+        turnTextElement.innerHTML = 'O\'s turn!'
     } else {
         element.innerHTML = 'O';
-        turnTextElement.innerHTML = 'O\'s turn!'
+        turnTextElement.innerHTML = 'X\'s turn!'
     }
 
     valueArray[index] = element.innerHTML;
